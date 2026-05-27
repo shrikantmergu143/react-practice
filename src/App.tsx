@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Search from './components/Search';
 
 function App() {
+  const [search, setSearch] = useState('');
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event?.target?.value);
+  };
+  const onSearch = (value: string) => {
+    console.log('search value:', value);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <Search name="search" value={search} onChange={onChange} onSearch={onSearch} />
     </div>
   );
 }
