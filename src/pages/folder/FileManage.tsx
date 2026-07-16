@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useMemo, useState } from 'react';
-import folderData, { IFolderData } from '../static/folderData';
+import folderData, { IFolderData } from '../../components/static/folderData';
 import FolderView from './FolderView';
 
 const RenderFile = (file: IFolderData) => {

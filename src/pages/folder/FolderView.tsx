@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, { useMemo, useState } from 'react';
-import { folderViewData } from '../static/folderData';
+import { folderViewData } from '../../components/static/folderData';
 
 export default function FolderView(file: folderViewData) {
   const { level = 0 } = file;
@@ -20,7 +20,7 @@ export default function FolderView(file: folderViewData) {
         onClick={handleOpen}
         className="p-2 px-2 rounded-md flex items-center w-full hover:bg-gray-100"
       >
-        <div style={{ paddingLeft: `${(file?.level || 0) * 10}px` }}>
+        <div className="flex items-center" style={{ paddingLeft: `${(file?.level || 0) * 10}px` }}>
           <span className="text-xl pr-2">{file?.isFolder ? '📁' : '📄'}</span>
           <span>{file?.name}</span>
         </div>

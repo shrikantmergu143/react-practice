@@ -1,15 +1,21 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router';
+const App = React.lazy(() => import('./App'));
+const SettingsProvider = React.lazy(() => import('./components/context/SettingsContext'));
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <React.Suspense fallback={<React.Fragment />}>
+    <BrowserRouter>
+      <SettingsProvider>
+        <App />
+      </SettingsProvider>
+    </BrowserRouter>
+  </React.Suspense>,
 );
 
 // If you want to start measuring performance in your app, pass a function
