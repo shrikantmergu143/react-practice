@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import sidebarStyle from '../../styles/sidebarStyle';
 import { ISidebarItem } from '../../components/static/constant';
+import AppIcon from '../../components/AppIcon';
+import AnchorLink from '../../components/common/AnchorLink';
 
 interface Props {
   item: ISidebarItem;
@@ -17,13 +18,11 @@ export default function MenuItem({ item }: Props) {
     return (
       <li>
         <button className={sidebarStyle.item} onClick={() => setOpen(!open)}>
-          <span>{item.icon ?? '📁'}</span>
-
           <span className={sidebarStyle.title}>{item.title}</span>
-
-          <span>{open ? '▾' : '▸'}</span>
+          <span>
+            <AppIcon name={open ? 'circle-caret-down' : "circle-caret-right"}/>
+          </span>
         </button>
-
         {open && (
           <ul className={sidebarStyle.subList}>
             {item.children!.map((child) => (
@@ -37,16 +36,14 @@ export default function MenuItem({ item }: Props) {
 
   return (
     <li>
-      <NavLink
-        to={item.path!}
+      <AnchorLink
+        to={item?.path as string}
         className={({ isActive }) =>
           `${sidebarStyle.item} ${isActive ? sidebarStyle.activeItem : ''}`
         }
       >
-        <span>{item.icon ?? '📄'}</span>
-
         <span className={sidebarStyle.title}>{item.title}</span>
-      </NavLink>
+      </AnchorLink>
     </li>
   );
 }

@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable import/no-anonymous-default-export */
+export default `
 import React, { useMemo, useState } from 'react';
 import { folderViewData } from '../../components/static/folderData';
 
@@ -15,12 +17,12 @@ export default function FolderView(file: folderViewData) {
     setFileOpen(!fileOpen);
   };
   return (
-    <section className={`file-view w-full`}>
+    <section className={'file-view w-full'}>
       <button
         onClick={handleOpen}
         className="p-2 px-2 rounded-md flex items-center w-full hover:bg-gray-100"
       >
-        <div className="flex items-center" style={{ paddingLeft: `${(file?.level || 0) * 10}px` }}>
+        <div className="flex items-center" style={{ paddingLeft: "(file?.level || 0) * 10px }}>
           <span className="text-xl pr-2">{file?.isFolder ? '📁' : '📄'}</span>
           <span>{file?.name}</span>
         </div>
@@ -32,7 +34,7 @@ export default function FolderView(file: folderViewData) {
               <FolderView {...item} index={index} key={index} level={level + 1} />
             ))
           ) : (
-            <div style={{ paddingLeft: `${(file?.level || 1) * 15}px` }}>
+            <div style={{ paddingLeft: '(file?.level || 1) * 15' }}>
               <span className="w-full flex px-3 p-2">No files found</span>
             </div>
           )}
@@ -41,3 +43,5 @@ export default function FolderView(file: folderViewData) {
     </section>
   );
 }
+
+`

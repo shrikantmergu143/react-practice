@@ -1,8 +1,8 @@
-/* eslint-disable prettier/prettier */
-import React, { useMemo, useState } from 'react';
-import folderData, { IFolderData } from '../../components/static/folderData';
+import { useMemo, useState } from 'react';
+import { IFolderData } from '../../components/static/folderData';
 import FolderView from './FolderView';
-
+import CodePreview from '../../components/CodePreview/CodePreview';
+import folderCode from './../../code/FolderView.code';
 const RenderFile = (file: IFolderData) => {
   const [fileOpen, setFileOpen] = useState(false);
   //   const getExtension = file?.name?.split('.')?.pop();
@@ -45,14 +45,37 @@ const RenderFile = (file: IFolderData) => {
   );
 };
 export default function FileManage() {
+  const data = {
+    name: 'src',
+    isFolder: true,
+    children: [
+      {
+        name: 'components',
+        isFolder: true,
+        children: [
+          { name: 'Button.tsx', isFolder: false },
+          { name: 'Card.tsx', isFolder: false },
+        ],
+      },
+      {
+        name: 'pages',
+        isFolder: true,
+        children: [{ name: 'Home.tsx', isFolder: false }],
+      },
+    ],
+  };
+
   return (
-    <aside className="flex flex-row flex-wrap gap-3 p-3">
-      <section className="max-w-[350px] w-full p-3 border border-1 border-gray rounded-md">
+    <aside className="flex flex-row flex-wrap">
+      {/* <section className="max-w-[350px] w-full p-3 border border-1 border-gray rounded-md">
         {RenderFile(folderData)}
       </section>
       <section className="max-w-[350px] w-full p-3 border border-1 border-gray rounded-md">
         <FolderView {...folderData} />
-      </section>
+      </section> */}
+      <CodePreview code={folderCode}>
+        <FolderView {...data} />
+      </CodePreview>
     </aside>
   );
 }

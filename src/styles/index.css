@@ -12,7 +12,7 @@
   /* Typography */
   --font-family: Inter, sans-serif;
 
-  --font-body: 16px;
+  --font-body: 14px;
   --font-small: 14px;
   --font-caption: 12px;
 
@@ -68,7 +68,7 @@
 }
 
 body {
-  font-size: var(--font-size);
+  font-size: var(--font-body);
   margin: 0;
   color: var(--color-text);
 }

@@ -8,7 +8,7 @@ const sidebarStyle = {
   logo: `text-title font-bold text-heading`,
   section: `flex-1 overflow-y-auto py-4`,
   list: `flex flex-col gap-1 px-3`,
-  item: `flex items-center gap-3 px-4 py-3 rounded-layout text-body text-body transition-all duration-200 hover:bg-hover hover:text-primary cursor-pointer w-full`,
+  item: `flex items-center gap-3 px-4 py-2 rounded-layout text-body text-body transition-all duration-200 hover:bg-hover hover:text-primary cursor-pointer w-full`,
   activeItem: `bg-primary text-white font-semibold shadow-layout`,
   icon: `w-5 h-5 flex items-center justify-center`,
   title: `flex-1 truncate text-left`,

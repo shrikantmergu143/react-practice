@@ -15,7 +15,7 @@ export default function SidebarMenu() {
           <h2 className={sidebarStyle.logo}>Dashboard</h2>
         </div>
 
-        <Scrollbar>
+        <Scrollbar style={{ height: 'calc(100vh - calc(var(--navbar-height) + 60px))' }}>
           <div className={sidebarStyle.section}>
             <ul className={sidebarStyle.list}>
               {sidebarList?.map?.((item, index) => (
@@ -25,7 +25,9 @@ export default function SidebarMenu() {
           </div>
         </Scrollbar>
 
-        <footer className={sidebarStyle.footer}>Version 1.0.0</footer>
+        <footer className={sidebarStyle.footer}>
+          Settings
+        </footer>
       </aside>
     </React.Suspense>
   );

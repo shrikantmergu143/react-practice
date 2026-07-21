@@ -2,6 +2,6 @@
 module.exports = {
   // ... other configs
   rules: {
-    'prettier/prettier': 'off',
+    'prettier/prettier': 'on',
   },
 };

@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+"use client";
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 /* =======================
@@ -107,7 +107,7 @@ const defaultSettings: DashboardSettings = {
   typography: {
     fontFamily: 'Inter, sans-serif',
 
-    body: 16,
+    body: 14,
     small: 14,
     caption: 12,
 
@@ -206,12 +206,12 @@ interface ISettingProvider {
 }
 const SettingsProvider = ({ children }: ISettingProvider) => {
   const [settings, setSettings] = useState<DashboardSettings>(() => {
-    const saved = localStorage.getItem('dashboard-settings');
+    const saved = globalThis?.localStorage?.getItem?.('dashboard-settings');
 
     return saved ? (JSON.parse(saved) as DashboardSettings) : defaultSettings;
   });
   useEffect(() => {
-    localStorage.setItem('dashboard-settings', JSON.stringify(settings));
+    globalThis?.localStorage?.setItem?.('dashboard-settings', JSON.stringify(settings));
 
     const root = document.documentElement;
 
