@@ -3,6 +3,7 @@ const APP_URL = {
   COUNTER: '/counter',
   FOLDER: '/folder',
   FLATTEN: '/flatten',
+  PNG_TINIFY: '/png-tinify',
 };
 export { APP_URL };
 
@@ -34,6 +35,11 @@ const sidebarList: ISidebarItem[] = [
         id: 23,
         title: 'Array Flatten',
         path: APP_URL.FLATTEN,
+      },
+      {
+        id: 24,
+        title: 'PNG Tinify',
+        path: APP_URL.PNG_TINIFY,
       },
     ],
   },

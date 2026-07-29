@@ -89,7 +89,7 @@ export default async function handler(
                     // First create a PNG with Sharp
                     await image
                         .png({
-                            compressionLevel: 6,
+                            compressionLevel: 9,
                             adaptiveFiltering: true,
                             effort: 10,
                         })
@@ -113,9 +113,10 @@ export default async function handler(
                         // Return whichever is smaller
                         buffer =
                             quant.length < original.length
-                                ? quant
+ ? quant
                                 : original;
-                    } catch {
+                    } catch (pngquantError) {
+                        console.error("pngquant failed:", pngquantError);
                         // pngquant failed, return original
                         buffer = original;
                     }

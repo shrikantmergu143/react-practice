@@ -2,21 +2,19 @@ import { useRef, useState } from "react";
 
 interface UploadFile {
   id: string;
-  file: File;
-  preview: string;
+ file: File;
+ preview: string;
 
-  compressedBlob?: Blob;
-  compressedUrl?: string;
-  compressedSize?: number;
+ compressing?: boolean;
+
+ compressedBlob?: Blob;
+ compressedUrl?: string;
+ compressedSize?: number;
 }
-
 export default function ImagePng() {
   const [files, setFiles] = useState<UploadFile[]>([]);
   const [dragActive, setDragActive] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   const inputRef = useRef<HTMLInputElement>(null);
-
   const addFiles = (selectedFiles: FileList | null) => {
     if (!selectedFiles) return;
 
@@ -45,42 +43,60 @@ export default function ImagePng() {
   };
 
 
-  const uploadAll = async () => {
-  if (!files.length) return;
+  const compressFile = async (id: string) => {
+    const current = files.find((f) => f.id === id);
+    if (!current) return;
 
-  setLoading(true);
+    setFiles((prev) =>
+      prev.map((f) =>
+        f.id === id
+          ? {
+              ...f,
+              compressing: true,
+            }
+          : f
+      )
+    );
 
-  try {
-    const updatedFiles = [...files];
-
-    for (let i = 0; i < updatedFiles.length; i++) {
-      const item = updatedFiles[i];
-
+    try {
       const formData = new FormData();
-      formData.append("image", item.file);
+      formData.append("image", current.file);
 
       const response = await fetch("/api/png-minify", {
         method: "POST",
         body: formData,
       });
 
-      if (!response.ok) continue;
+      if (!response.ok) throw new Error();
 
       const blob = await response.blob();
 
-      updatedFiles[i] = {
-        ...item,
-        compressedBlob: blob,
-        compressedUrl: URL.createObjectURL(blob),
-        compressedSize: blob.size,
-      };
+      setFiles((prev) =>
+        prev.map((f) =>
+          f.id === id
+            ? {
+                ...f,
+                compressing: false,
+                compressedBlob: blob,
+                compressedUrl: URL.createObjectURL(blob),
+                compressedSize: blob.size,
+              }
+            : f
+        )
+      );
+    } catch {
+      setFiles((prev) =>
+        prev.map((f) =>
+          f.id === id
+            ? {
+                ...f,
+                compressing: false,
+              }
+            : f
+        )
+      );
     }
-
-    setFiles(updatedFiles);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   const formatSize = (size: number) => {
     if (size < 1024) return `${size} B`;
@@ -90,40 +106,40 @@ export default function ImagePng() {
 
     return `${(size / 1024 / 1024).toFixed(2)} MB`;
   };
-const downloadFile = (item: UploadFile) => {
-  if (!item.compressedUrl) return;
+  const downloadFile = (item: UploadFile) => {
+    if (!item.compressedUrl) return;
 
-  const a = document.createElement("a");
-  a.href = item.compressedUrl;
-  a.download = item.file.name;
-  a.click();
-};
-const removeFile = (id: string) => {
-  setFiles((prev) => {
-    const file = prev.find((x) => x.id === id);
+    const a = document.createElement("a");
+    a.href = item.compressedUrl;
+    a.download = item.file.name;
+    a.click();
+  };
+  const removeFile = (id: string) => {
+    setFiles((prev) => {
+      const file = prev.find((x) => x.id === id);
 
-    if (file) {
+      if (file) {
+        URL.revokeObjectURL(file.preview);
+
+        if (file.compressedUrl) {
+          URL.revokeObjectURL(file.compressedUrl);
+        }
+      }
+
+      return prev.filter((x) => x.id !== id);
+    });
+  };
+  const clearFiles = () => {
+    files.forEach((file) => {
       URL.revokeObjectURL(file.preview);
 
       if (file.compressedUrl) {
         URL.revokeObjectURL(file.compressedUrl);
       }
-    }
+    });
 
-    return prev.filter((x) => x.id !== id);
-  });
-};
-const clearFiles = () => {
-  files.forEach((file) => {
-    URL.revokeObjectURL(file.preview);
-
-    if (file.compressedUrl) {
-      URL.revokeObjectURL(file.compressedUrl);
-    }
-  });
-
-  setFiles([]);
-};
+    setFiles([]);
+  };
   return (
     <div className="overflow-auto bg-slate-100 py-10">
       <div className="mx-auto max-w-5xl rounded-xl bg-white shadow-lg">
@@ -209,87 +225,109 @@ const clearFiles = () => {
 
               </div>
 
-              <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1">
 
-                {files.map((item) => (
-                  <div
-                    key={item.id}
-                    className="overflow-hidden rounded-xl border bg-white shadow-sm transition hover:shadow-lg"
-                  >
+              {files.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex flex-col gap-4 rounded-xl border bg-white p-4 shadow-sm transition hover:shadow-md md:flex-row md:items-center"
+                >
+                  {/* Image */}
+                  <div className="flex justify-center md:w-40">
                     <img
                       src={item.preview}
-                      className="h-48 w-full object-contain bg-gray-100"
+                      alt={item.file.name}
+                      className="h-28 w-28 rounded-lg border bg-gray-100 object-contain"
                     />
+                  </div>
 
-                    <div className="space-y-2 p-4">
-                            <div className="flex justify-between">
-                                <span>Original</span>
-                                <span>{formatSize(item.file.size)}</span>
-                            </div>
+                  {/* File Details */}
+                  <div className="flex-1">
+                    <h3 className="truncate text-lg font-semibold">
+                      {item.file.name}
+                    </h3>
 
-                            {item.compressedSize && (
-                                <>
-                                <div className="flex justify-between text-green-600 font-semibold">
-                                    <span>Compressed</span>
-                                    <span>{formatSize(item.compressedSize)}</span>
-                                </div>
+                    <div className="mt-3 grid grid-cols-2 gap-y-2 text-sm md:grid-cols-4">
+                      <div>
+                        <p className="text-gray-500">Original</p>
+                        <p className="font-medium">
+                          {formatSize(item.file.size)}
+                        </p>
+                      </div>
 
-                                <div className="flex justify-between">
-                                    <span>Saved</span>
-                                    <span>
-                                    {(
-                                        ((item.file.size - item.compressedSize) /
-                                        item.file.size) *
-                                        100
-                                    ).toFixed(1)}
-                                    %
-                                    </span>
-                                </div>
-                                </>
-                            )}
+                      <div>
+                        <p className="text-gray-500">Compressed</p>
+                        <p className="font-medium text-green-600">
+                          {item.compressedSize
+                            ? formatSize(item.compressedSize)
+                            : "--"}
+                        </p>
+                      </div>
 
-                        <div className="mt-4 space-y-2">
+                      <div>
+                        <p className="text-gray-500">Saved</p>
+                        <p className="font-medium">
+                          {item.compressedSize
+                            ? `${(
+                                ((item.file.size - item.compressedSize) /
+                                  item.file.size) *
+                                100
+                              ).toFixed(1)}%`
+                            : "--"}
+                        </p>
+                      </div>
 
-                        {item.compressedUrl && (
-                            <button
-                            onClick={() => downloadFile(item)}
-                            className="w-full rounded-lg bg-green-600 py-2 text-white hover:bg-green-700"
-                            >
-                            Download
-                            </button>
+                      <div>
+                        <p className="text-gray-500">Status</p>
+
+                        {item.compressedUrl ? (
+                          <span className="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
+                            Completed
+                          </span>
+                        ) : item.compressing ? (
+                          <span className="rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700">
+                            Compressing...
+                          </span>
+                        ) : (
+                          <span className="rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700">
+                            Pending
+                          </span>
                         )}
-
-                        <button
-                            onClick={() => removeFile(item.id)}
-                            className="w-full rounded-lg bg-red-500 py-2 text-white hover:bg-red-600"
-                        >
-                            Remove
-                        </button>
-
-                        </div>
-
+                      </div>
                     </div>
                   </div>
-                ))}
 
+                  {/* Actions */}
+                  <div className="flex flex-col gap-2 md:w-40">
+                    {!item.compressedUrl && (
+                      <button
+                        onClick={() => compressFile(item.id)}
+                        disabled={item.compressing}
+                        className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+                      >
+                        {item.compressing ? "Compressing..." : "Compress"}
+                      </button>
+                    )}
+
+                    {item.compressedUrl && (
+                      <button
+                        onClick={() => downloadFile(item)}
+                        className="rounded-lg bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+                      >
+                        Download
+                      </button>
+                    )}
+
+                    <button
+                      onClick={() => removeFile(item.id)}
+                      className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
               </div>
-
-              <div className="mt-8">
-
-                <button
-                  disabled={loading}
-                  onClick={uploadAll}
-                  className="rounded-xl bg-blue-600 px-8 py-3 text-lg font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {loading
-                    ? "Compressing..."
-                    : `Compress ${files.length} File${
-                        files.length > 1 ? "s" : ""
-                      }`}
-                </button>
-
-              </div>
-
             </div>
           )}
 

@@ -5,5 +5,5 @@
   "trailingComma": "off",
   "printWidth": 100,
   "endOfLine": "lf",
-  "prettier/prettier": "off"
+  "prettier/prettier": "on"
 }
