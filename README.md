@@ -1,46 +1,182 @@
-# Getting Started with Create React App
+Sure — here’s a **JavaScript interview coding questions list**, organized from beginner to advanced.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 🟢 Beginner JavaScript Coding Questions
 
-## Available Scripts
+1. Reverse a string without using `reverse()`.
+2. Check whether a string is a palindrome.
+3. Find the factorial of a number.
+4. Find the Fibonacci series up to `n` terms.
+5. Check whether a number is prime.
+6. Find the largest number in an array.
+7. Find the smallest number in an array.
+8. Find the sum of all elements in an array.
+9. Count vowels in a string.
+10. Count the frequency of each character in a string.
+11. Remove duplicate elements from an array.
+12. Find the second-largest number in an array.
+13. Find even and odd numbers from an array.
+14. Swap two numbers without using a third variable.
+15. Check whether two strings are anagrams.
+16. Find the number of occurrences of an element in an array.
+17. Reverse an array without using `reverse()`.
+18. Find missing numbers from an array.
+19. Sort an array without using `sort()`.
+20. Find common elements between two arrays.
 
-In the project directory, you can run:
+### 🟡 Intermediate JavaScript Questions
 
-### `npm start`
+21. Flatten a nested array.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```js
+// Input
+[1, [2, [3, 4]], 5]
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+// Output
+[1, 2, 3, 4, 5]
+```
 
-### `npm test`
+22. Implement your own `map()` function.
+23. Implement your own `filter()` function.
+24. Implement your own `reduce()` function.
+25. Implement your own `forEach()` function.
+26. Implement a custom `find()` function.
+27. Implement a custom `includes()` function.
+28. Implement a custom `bind()` function.
+29. Implement a custom `call()` function.
+30. Implement a custom `apply()` function.
+31. Deep clone an object.
+32. Check whether two objects are deeply equal.
+33. Convert an object into an array of key-value pairs.
+34. Convert an array into an object.
+35. Group objects by a property.
+36. Remove duplicate objects from an array.
+37. Find the first non-repeating character.
+38. Find the longest word in a sentence.
+39. Find the longest substring without repeating characters.
+40. Find all pairs whose sum equals a given number.
+41. Find the intersection of two arrays.
+42. Find the union of two arrays.
+43. Rotate an array by `k` positions.
+44. Chunk an array into smaller arrays.
+45. Implement a `unique()` function.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🟠 Functions, Closures & Async
 
-### `npm run build`
+46. Create a counter using closure.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```js
+const counter = createCounter();
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+counter(); // 1
+counter(); // 2
+counter(); // 3
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+47. Implement function currying.
 
-### `npm run eject`
+```js
+sum(1)(2)(3) // 6
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+48. Implement partial application.
+49. Implement memoization.
+50. Implement a debounce function.
+51. Implement a throttle function.
+52. Implement `once()` — a function that executes only once.
+53. Implement function composition.
+54. Implement a pipe function.
+55. Implement a retry mechanism for a Promise.
+56. Implement `Promise.all()`.
+57. Implement `Promise.race()`.
+58. Implement `Promise.allSettled()`.
+59. Implement `Promise.any()`.
+60. Execute multiple async tasks with a concurrency limit.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 🔴 Advanced JavaScript Coding Questions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+61. Implement an **LRU Cache**.
+62. Implement an **Event Emitter**.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```js
+emitter.on("login", callback);
+emitter.emit("login");
+emitter.off("login", callback);
+```
 
-## Learn More
+63. Implement a custom **Promise**.
+64. Implement a **task scheduler**.
+65. Implement a **Pub/Sub system**.
+66. Implement a **rate limiter**.
+67. Implement a **deep freeze** function.
+68. Implement a **deep merge** function.
+69. Implement object path access.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```js
+get(obj, "user.profile.name");
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+70. Implement object path assignment.
+
+```js
+set(obj, "user.profile.name", "John");
+```
+
+71. Convert a nested object into a flat object.
+
+```js
+{
+  user: {
+    name: "John",
+    address: {
+      city: "Pune"
+    }
+  }
+}
+
+// {
+//   "user.name": "John",
+//   "user.address.city": "Pune"
+// }
+```
+
+72. Convert a flat object back into a nested object.
+73. Implement a virtual DOM diff algorithm.
+74. Implement a simple template engine.
+75. Implement an infinite-scroll data loader.
+76. Implement an autocomplete/search with debounce.
+77. Implement a pagination utility.
+78. Implement a queue using two stacks.
+79. Implement a stack using two queues.
+80. Implement a priority queue.
+
+### ⭐ Very Common JavaScript Interview Coding Questions
+
+If you're preparing for interviews, prioritize these:
+
+1. Reverse string
+2. Palindrome
+3. Fibonacci
+4. Factorial
+5. Prime number
+6. Remove duplicates
+7. Find second largest
+8. Character frequency
+9. Anagram
+10. Missing number
+11. Flatten array
+12. Array/object manipulation
+13. Deep clone
+14. `map`, `filter`, `reduce` polyfills
+15. `call`, `apply`, `bind` polyfills
+16. Debounce
+17. Throttle
+18. Closure counter
+19. Currying
+20. Memoization
+21. Promise implementation
+22. `Promise.all`
+23. Async concurrency
+24. Event emitter
+25. LRU cache
+
+If you're targeting **JavaScript/React frontend interviews**, I can also give you a **100-question JavaScript coding sheet with questions + expected output + solutions**, arranged as **Easy → Medium → Hard**.

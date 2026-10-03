@@ -4,6 +4,10 @@ const APP_URL = {
   FOLDER: '/folder',
   FLATTEN: '/flatten',
   PNG_TINIFY: '/png-tinify',
+  USE_REDUCER: '/use-reducer',
+  REVERSE_STRING: '/reverse-string',
+  PALINDROME: '/palindrome',
+  FACTORIAL: '/factorial',
 };
 export { APP_URL };
 
@@ -40,6 +44,26 @@ const sidebarList: ISidebarItem[] = [
         id: 24,
         title: 'PNG Tinify',
         path: APP_URL.PNG_TINIFY,
+      },
+      {
+        id: 25,
+        title: 'useReducer',
+        path: APP_URL.USE_REDUCER,
+      },
+      {
+        id: 26,
+        title: 'Reverse String',
+        path: APP_URL.REVERSE_STRING,
+      },
+      {
+        id: 27,
+        title: 'Palindrome',
+        path: APP_URL.PALINDROME,
+      },
+      {
+        id: 28,
+        title: 'Factorial',
+        path: APP_URL.FACTORIAL,
       },
     ],
   },
