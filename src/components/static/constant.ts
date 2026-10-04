@@ -8,6 +8,10 @@ const APP_URL = {
   REVERSE_STRING: '/reverse-string',
   PALINDROME: '/palindrome',
   FACTORIAL: '/factorial',
+  FIBONACCI: '/fibonacci',
+  DUPLICATE_VALUE_REMOVE: '/duplicate-value-remove',
+  PRIME_NUMBER: '/prime-number',
+  LARGEST_NUMBER: '/largest-number',
 };
 export { APP_URL };
 
@@ -64,6 +68,26 @@ const sidebarList: ISidebarItem[] = [
         id: 28,
         title: 'Factorial',
         path: APP_URL.FACTORIAL,
+      },
+      {
+        id: 29,
+        title: 'Fibonacci',
+        path: APP_URL.FIBONACCI,
+      },
+      {
+        id: 30,
+        title: 'Duplicate Value Remove',
+        path: APP_URL.DUPLICATE_VALUE_REMOVE,
+      },
+      {
+        id: 31,
+        title: 'Prime Number',
+        path: APP_URL.PRIME_NUMBER,
+      },
+      {
+        id: 32,
+        title: 'Largest Number',
+        path: APP_URL.LARGEST_NUMBER,
       },
     ],
   },

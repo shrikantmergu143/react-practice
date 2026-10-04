@@ -7,6 +7,7 @@ import BodyLayout from '../Layout/BodyLayout';
 export default function FlattenIndex() {
     const array_value = [['foo', 'bar'], ['baz', 'qux']];
     const Array1 = [1, 2, 3, 4, [5, 6, [6, [23,23, 5, 6,5, 6, 7, ["234", 234]], 7], 7, 8]];
+    // First
     const flatten = (array: any[]) =>{
         const temp: any = [];
         array?.forEach((arrayItem) => {
@@ -17,6 +18,18 @@ export default function FlattenIndex() {
             }
         });
         return temp;
+    };
+    // Second
+    const flatten = (array: any[]) =>{
+        const tempArray = [];
+        for(let i = 0; i < array.length; i++){
+        const curAr = array?.[i];
+            if(Array.isArray(curAr)){
+                tempArray.push(...flatten(curAr))
+            } else {
+                tempArray.push(curAr);
+            }
+        }
     };
   return (
     <BodyLayout>
